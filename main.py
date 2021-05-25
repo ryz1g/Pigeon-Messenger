@@ -32,24 +32,7 @@ class PigeonApp(App):
         while True:
             wd.text=wd.text[:-8]+str(datetime.now())[-15:-7]
             time.sleep(1)
-    """
-    def tb_press(self,ind):
-        global text_dict
-        self.ids.t_input=text_dict[ind]
 
-    def show_texts(self):
-        global text_dict
-        print(text_dict)
-
-    def ycam_press(self):
-        c=self.ids.your_cam
-        if c.play:
-            c.play=False
-            #c.texture="images/im1.jpg"
-        else:
-            c.play=True
-            #c.source=""
-    """
     def send(self,t):
         global text_count
         global text_dict
@@ -64,8 +47,6 @@ class PigeonApp(App):
         b=BoxLayout(orientation="vertical", spacing=5,size_hint=(1,None),size=(450,50),pos_hint={'right':1, 'top':1})
         b.add_widget(Label(text="You", font_size=11,size_hint=(None,None),size=("30dp","10dp"),pos_hint={'right':1, 'top':1} ))
         b.add_widget(Button(text=tx,background_color=(235/255.0,125/255.0,103/255.0,1),font_size=18,size_hint=(ssize,None),size=(ssize,"40dp"),pos_hint={'right':1, 'top':1}))
-        #dply.add_widget(Button(text="You",background_color=(235/255.0,125/255.0,103/255.0,1),font_size=8,size_hint=(None,None),size=("20dp","30dp"),pos_hint={'right':1, 'top':1}))
-        #dply.add_widget(Button(text=tx,background_color=(235/255.0,225/255.0,52/255.0,1),font_size=20,size_hint=(ssize,None),size=(ssize,"40dp"),pos_hint={'right':1, 'top':1}))
         dply.add_widget(b)
         t.text=""
 
