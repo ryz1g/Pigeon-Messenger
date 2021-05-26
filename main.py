@@ -5,6 +5,7 @@ import time
 
 from kivy.config import Config
 Config.set('graphics', 'resizable', False)
+#Config.set('kivy', 'window_icon', 'Icons/top_icon.png')
 
 from kivy.core.window import Window
 from kivy.app import App
@@ -22,6 +23,7 @@ Window.clearcolor = (0/255,0/255,0/255,1)
 text_count=0
 text_dict={}
 dply=0
+turn=0
 
 class text_their(Button):
     def __init__(self,tx,ssize,**kwargs):
@@ -80,6 +82,7 @@ class PigeonApp(App):
             #c.source=""
     """
     def send(self,t):
+        global turn
         global text_count
         global text_dict
         global curr_time
@@ -89,13 +92,16 @@ class PigeonApp(App):
             return
         ssize=len(tx)*0.018+0.0012
         text_dict[str(datetime.now())[:-7]]=tx
-        b=BoxLayout(orientation="vertical", spacing=2,size_hint=(1,None),size=(450,50),pos_hint={'right':1, 'top':1})
-        b.add_widget(Label(text="You", font_size=11,size_hint=(None,None),size=("30dp","10dp"),pos_hint={'right':1, 'top':1} ))
+        b=BoxLayout(orientation="vertical",spacing=2,padding=2,size_hint=(1,None),size=(450,50),pos_hint={'right':1, 'top':1})
+        if turn!=1:
+            b.add_widget(Label(text="You", font_size=11,size_hint=(None,None),size=("30dp","10dp"),pos_hint={'right':1, 'top':1} ))
         b.add_widget(text_your(tx,ssize))
         dply.add_widget(b)
         t.text=""
+        turn=1
 
     def send2(self,t):
+        global turn
         global text_count
         global text_dict
         global curr_time
@@ -105,11 +111,13 @@ class PigeonApp(App):
             return
         text_dict[str(datetime.now())[:-7]]=tx
         ssize=len(tx)*0.018+0.0012
-        b=BoxLayout(orientation="vertical", spacing=2,size_hint=(1,None),size=(450,50),pos_hint={'left':1, 'top':1})
-        b.add_widget(Label(text="Them", font_size=11,size_hint=(None,None),size=("30dp","10dp"),pos_hint={'left':1, 'top':1} ))
+        b=BoxLayout(orientation="vertical",spacing=2,padding=2,size_hint=(1,None),size=(450,50),pos_hint={'left':1, 'top':1})
+        if turn!=2:
+            b.add_widget(Label(text="Them", font_size=11,size_hint=(None,None),size=("30dp","10dp"),pos_hint={'left':1, 'top':1} ))
         b.add_widget(text_their(tx,ssize))
         dply.add_widget(b)
         t.text=""
+        turn=2
 
     def send_selected(self,f):
         print(f[0])
