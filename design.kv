@@ -99,10 +99,11 @@ ScreenManager:
 
                         BoxLayout:
                             orientation:"horizontal"
-                            #size_hint: (1,0.05)
 
                             Button:
                                 text:"Back"
+                                background_normal:"Icons/header_back_2.png"
+                                background_down:"Icons/header_back_1.png"
                                 size_hint: (0.2,1)
                                 pos_hint:{"top":1}
                                 on_release:
@@ -114,13 +115,15 @@ ScreenManager:
                             Label:
                                 id:header
                                 text:"00:00:00"
-                                color: (1,1,1,1)
+                                color: (1,1,1,0.85)
                                 pos_hint: {"top":1}
                                 font_size: 25
                                 italic:True
 
                             Button:
                                 text:"Call"
+                                background_normal:"Icons/header_call_2.png"
+                                background_down:"Icons/header_call_1.png"
                                 size_hint: (0.2,1)
                                 pos_hint:{"top":1}
                                 on_release:
@@ -140,32 +143,38 @@ ScreenManager:
 
                     BoxLayout:
                         orientation:"horizontal"
-                        size_hint: (1,0.07)
+                        size_hint: (1,0.06)
                         padding:2
                         spacing:5
 
                         TextInput:
                             id:t_input
                             text:"default"
-                            font_size:20
+                            font_size:18
                             multiline:False
                             halign:"right"
                             on_text_validate:app.send(t_input)
 
                         Button:
                             text:"Send"
+                            background_normal:"Icons/footer_2.png"
+                            background_down:"Icons/footer_1.png"
                             size_hint: 0.2,1
-                            font_size:16
+                            font_size: 16
                             on_release:app.send(t_input)
 
                         Button:
                             text:"Image"
+                            background_normal:"Icons/footer_2.png"
+                            background_down:"Icons/footer_1.png"
                             size_hint: 0.2,1
                             font_size:16
                             on_release:Factory.MyPop().open()
 
                         Button:
                             text:"Options"
+                            background_normal:"Icons/footer_2.png"
+                            background_down:"Icons/footer_1.png"
                             size_hint: 0.2,1
                             font_size:16
                             on_release:
