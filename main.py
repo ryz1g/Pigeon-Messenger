@@ -87,7 +87,7 @@ class PigeonApp(App):
         tx=t.text
         if tx=="":
             return
-        ssize=len(tx)*0.02+0.001
+        ssize=len(tx)*0.018+0.0012
         text_dict[str(datetime.now())[:-7]]=tx
         b=BoxLayout(orientation="vertical", spacing=2,size_hint=(1,None),size=(450,50),pos_hint={'right':1, 'top':1})
         b.add_widget(Label(text="You", font_size=11,size_hint=(None,None),size=("30dp","10dp"),pos_hint={'right':1, 'top':1} ))
@@ -104,7 +104,7 @@ class PigeonApp(App):
         if tx=="":
             return
         text_dict[str(datetime.now())[:-7]]=tx
-        ssize=len(tx)*0.02+0.001
+        ssize=len(tx)*0.018+0.0012
         b=BoxLayout(orientation="vertical", spacing=2,size_hint=(1,None),size=(450,50),pos_hint={'left':1, 'top':1})
         b.add_widget(Label(text="Them", font_size=11,size_hint=(None,None),size=("30dp","10dp"),pos_hint={'left':1, 'top':1} ))
         b.add_widget(text_their(tx,ssize))
