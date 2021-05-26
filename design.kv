@@ -26,24 +26,47 @@ ScreenManager:
             BoxLayout:
                 orientation:"vertical"
                 size_hint:(1,0.3)
+                padding:3
+                spacing:3
 
                 Label:
                     text:"Enter IP Address!"
+                    font_size:"25"
 
                 TextInput:
                     id:ip_enter
                     size_hint:(1,0.35)
                     halign:"center"
                     multiline:False
-
-                Button:
-                    text:"Start"
-                    on_press:
+                    on_text_validate:
                         threading.Thread(target=app.clock, args=(header,), daemon=True).start()
                         app.initialize(disp)
-                        header.text="            IP:"+ip_enter.text+"            Time:00:00:00"
+                        #header.text="            IP:"+ip_enter.text+"            Time:00:00:00"
                         ip_enter.text=""
+                        manager.transition.duration=0.3
                         manager.current="chat_layout"
+                        manager.transition.direction="left"
+
+                BoxLayout:
+                    orientation:"horizontal"
+                    spacing:3
+
+                    Button:
+                        text:"Connect"
+                        on_release:
+                            threading.Thread(target=app.clock, args=(header,), daemon=True).start()
+                            app.initialize(disp)
+                            #header.text="            IP:"+ip_enter.text+"            Time:00:00:00"
+                            ip_enter.text=""
+                            manager.transition.duration=0.3
+                            manager.current="chat_layout"
+                            manager.transition.direction="left"
+
+
+                    Button:
+                        text:"Quit"
+                        on_release:
+                            app.exit()
 
     Screen:
         name:"chat_layout"
@@ -71,17 +94,29 @@ ScreenManager:
                             text:"Back"
                             size_hint: (0.2,1)
                             pos_hint:{"top":1}
-                            on_press:
+                            on_release:
                                 manager.current="home_layout"
+                                manager.transition.direction="right"
+                                manager.transition.duration=0.3
                                 app.clear_chat()
 
                         Label:
                             id:header
-                            text:"            IP:192.168.0.1            Time:00:00:00"
+                            text:"Time:00:00:00"
                             color: (1,1,1,1)
-                            pos_hint: {"top":1,'center_x':0.5}
+                            pos_hint: {"top":1}
                             font_size: 25
                             italic:True
+
+                        Button:
+                            text:"Call"
+                            size_hint: (0.2,1)
+                            pos_hint:{"top":1}
+                            on_release:
+                                #your_cam.play=True
+                                manager.current="call_layout"
+                                manager.transition.direction="left"
+                                manager.transition.duration=0.3
 
                     ScrollView:
                         BoxLayout:
@@ -104,32 +139,74 @@ ScreenManager:
                             font_size:19
                             multiline:False
                             halign:"right"
+                            on_text_validate:app.send(t_input)
 
                         Button:
                             text:"Send"
                             size_hint: 0.2,1
                             font_size:16
-                            on_press:app.send(t_input)
+                            on_release:app.send(t_input)
 
                         Button:
                             text:"Image"
                             size_hint: 0.2,1
                             font_size:16
-                            on_press:Factory.MyPop().open()
+                            on_release:Factory.MyPop().open()
 
                         Button:
-                            text:"Send2"
+                            text:"Options"
                             size_hint: 0.2,1
                             font_size:16
-                            on_press:
+                            on_release:
                                 app.send2(t_input)
-        Screen:
-        name:"call"
+    Screen:
+        name:"call_layout"
+
+        FloatLayout:
+            #pos_hint:{'bottom':1}
+            size:root.width,root.height
+
+            Button:
+                text:"Back"
+                size_hint:(0.1,0.05)
+                on_release:
+                    manager.transition.duration=0.3
+                    manager.transition.direction="right"
+                    #your_cam.play=False
+                    manager.current="chat_layout"
+
+        AnchorLayout:
+            size:root.width,root.height
+            anchor_y:"bottom"
+            anchoy_x:"right"
+
+            Button:
+                text:"Mic"
+                size_hint:(0.06,0.05)
+                on_release:
+                    manager.transition.duration=0.3
+                    manager.transition.direction="right"
+                    manager.current="chat_layout"
 
         BoxLayout:
-            BoxLayout:
+            size:root.width,root.height
             orientation:"vertical"
-            
+
+            Image:
+                id:their_cam
+                #play:True
+                #resolution:(495,278)
+                source:"Images/im1.jpg"
+
+            Image:
+                id:their_c
+                source:"Images/im2.jpg"
+
+            #Camera:
+            #    id:your_cam
+            #    play:False
+            #    resolution:(495,278)
+            #    #source:"Images/im2.jpg"
 
 <MyPop@Popup>
     auto_dismiss: True
@@ -149,10 +226,10 @@ ScreenManager:
             Button:
                 text:"Send"
                 size_hint: (0.5,0.2)
-                on_press:
+                on_release:
                     app.send_selected(fc.selection)
                     root.dismiss()
             Button:
                 text:"Close"
                 size_hint: (0.5,0.2)
-                on_press: root.dismiss()
+                on_release: root.dismiss()
