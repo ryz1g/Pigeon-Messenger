@@ -63,24 +63,7 @@ class PigeonApp(App):
         while True:
             wd.text=str(datetime.now())[-15:-7]
             time.sleep(1)
-    """
-    def tb_press(self,ind):
-        global text_dict
-        self.ids.t_input=text_dict[ind]
 
-    def show_texts(self):
-        global text_dict
-        print(text_dict)
-
-    def ycam_press(self):
-        c=self.ids.your_cam
-        if c.play:
-            c.play=False
-            #c.texture="images/im1.jpg"
-        else:
-            c.play=True
-            #c.source=""
-    """
     def send(self,t):
         global turn
         global text_count
