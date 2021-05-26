@@ -19,7 +19,30 @@ text_count=0
 text_dict={}
 dply=0
 
+class text_their(Button):
+    def __init__(self,tx,ssize):
+        super().__init__()
+        self.text=tx
+        self.background_color=(245/255.0,224/255.0,66/255.0,1)
+        self.font_size=18
+        self.size_hint=(ssize,None)
+        self.size=(ssize,"40dp")
+        self.pos_hint={'left':1, 'top':1}
+
+class text_your(Button):
+    def __init__(self,tx,ssize):
+        super().__init__()
+        self.text=tx
+        self.background_color=(235/255.0,125/255.0,103/255.0,1)
+        self.font_size=18
+        self.size_hint=(ssize,None)
+        self.size=(ssize,"40dp")
+        self.pos_hint={'right':1, 'top':1}
+
 class PigeonApp(App):
+    def exit(self):
+        Window.close()
+
     def initialize(self,d):
         global dply
         dply=d
@@ -32,7 +55,7 @@ class PigeonApp(App):
         while True:
             wd.text=wd.text[:-8]+str(datetime.now())[-15:-7]
             time.sleep(1)
-
+   
     def send(self,t):
         global text_count
         global text_dict
@@ -42,22 +65,26 @@ class PigeonApp(App):
         if tx=="":
             return
         ssize=len(tx)*0.02+0.008
-        p_id="text_"+str(text_count)
         text_dict[str(datetime.now())[:-7]]=tx
         b=BoxLayout(orientation="vertical", spacing=5,size_hint=(1,None),size=(450,50),pos_hint={'right':1, 'top':1})
         b.add_widget(Label(text="You", font_size=11,size_hint=(None,None),size=("30dp","10dp"),pos_hint={'right':1, 'top':1} ))
-        b.add_widget(Button(text=tx,background_color=(235/255.0,125/255.0,103/255.0,1),font_size=18,size_hint=(ssize,None),size=(ssize,"40dp"),pos_hint={'right':1, 'top':1}))
+        b.add_widget(text_your(tx,ssize))
         dply.add_widget(b)
         t.text=""
 
     def send2(self,t):
+        global text_count
+        global text_dict
+        global curr_time
+        text_count=text_count+1
         tx=t.text
         if tx=="":
             return
+        text_dict[str(datetime.now())[:-7]]=tx
         ssize=len(tx)*0.02+0.008
         b=BoxLayout(orientation="vertical", spacing=5,size_hint=(1,None),size=(450,50),pos_hint={'left':1, 'top':1})
         b.add_widget(Label(text="Them", font_size=11,size_hint=(None,None),size=("30dp","10dp"),pos_hint={'left':1, 'top':1} ))
-        b.add_widget(Button(text=tx,background_color=(245/255.0,224/255.0,66/255.0,1),font_size=18,size_hint=(ssize,None),size=(ssize,"40dp"),pos_hint={'left':1, 'top':1}))
+        b.add_widget(text_their(tx,ssize))
         dply.add_widget(b)
         t.text=""
 
