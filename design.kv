@@ -75,10 +75,12 @@ ScreenManager:
             size: root.width, root.height
             anchor_x:"center"
             anchor_y:"center"
+
             Image:
-                source:"Images/bg.jpg"
+                source:"Images/chat_bgg.jpg"
                 allow_stretch:True
                 keep_ratio:False
+
             BoxLayout:
                 orientation:"horizontal"
 
@@ -86,37 +88,46 @@ ScreenManager:
                     cols:1
                     rows:3
 
-                    BoxLayout:
-                        orientation:"horizontal"
-                        size_hint: (1,0.05)
+                    AnchorLayout:
+                        anchor_x:"center"
+                        size_hint:(1,0.05)
 
-                        Button:
-                            text:"Back"
-                            size_hint: (0.2,1)
-                            pos_hint:{"top":1}
-                            on_release:
-                                manager.current="home_layout"
-                                manager.transition.direction="right"
-                                manager.transition.duration=0.3
-                                app.clear_chat()
+                        Image:
+                            source:"Icons/header.png"
+                            allow_stretch:True
+                            keep_ratio:False
 
-                        Label:
-                            id:header
-                            text:"Time:00:00:00"
-                            color: (1,1,1,1)
-                            pos_hint: {"top":1}
-                            font_size: 25
-                            italic:True
+                        BoxLayout:
+                            orientation:"horizontal"
+                            #size_hint: (1,0.05)
 
-                        Button:
-                            text:"Call"
-                            size_hint: (0.2,1)
-                            pos_hint:{"top":1}
-                            on_release:
-                                #your_cam.play=True
-                                manager.current="call_layout"
-                                manager.transition.direction="left"
-                                manager.transition.duration=0.3
+                            Button:
+                                text:"Back"
+                                size_hint: (0.2,1)
+                                pos_hint:{"top":1}
+                                on_release:
+                                    manager.current="home_layout"
+                                    manager.transition.direction="right"
+                                    manager.transition.duration=0.3
+                                    app.clear_chat()
+
+                            Label:
+                                id:header
+                                text:"00:00:00"
+                                color: (1,1,1,1)
+                                pos_hint: {"top":1}
+                                font_size: 25
+                                italic:True
+
+                            Button:
+                                text:"Call"
+                                size_hint: (0.2,1)
+                                pos_hint:{"top":1}
+                                on_release:
+                                    #your_cam.play=True
+                                    manager.current="call_layout"
+                                    manager.transition.direction="left"
+                                    manager.transition.duration=0.3
 
                     ScrollView:
                         BoxLayout:
@@ -136,7 +147,7 @@ ScreenManager:
                         TextInput:
                             id:t_input
                             text:"default"
-                            font_size:19
+                            font_size:20
                             multiline:False
                             halign:"right"
                             on_text_validate:app.send(t_input)
