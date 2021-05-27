@@ -180,9 +180,9 @@ class PigeonApp(App):
         global oth_adr
         global id
         if id==0:
-            oth_adr=("192.168.1.2",10005)
+            oth_adr=(t.text,10005)
         else :
-            oth_adr=("192.168.1.2",10000)
+            oth_adr=(t.text,10000)
         connect()
 
     def clear_chat(self):
