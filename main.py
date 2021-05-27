@@ -91,27 +91,16 @@ def ronly():
             turn=2
         else :
             print("Waiting for image!")
-            #size=(int(cp.recv(1024).decode())*6)/8
-            #print("Size:",size)
-
             lab="Media/"+(str(datetime.now())[-15:-7]).replace(":","_")+".jpg"
             with open(lab, "wb") as im:
-                #im.write(img)
                 while True:
                     dat=cp.recv(1024)
-                    #print(str(dat))
-                    #print("---------")
                     if dat!=b'eof':
                         im.write(dat)
                     else:
                         break
-                #img=cp.recv(1024)
-            #img=img+bytes('='*(-len(img)%4),'utf-8')
                 im.close()
             print("Received Image!")
-            #dec=open(lab, "wb")
-            #dec.write(base64.b64decode(img))
-            #dec.close()
             time.sleep(0.3)
             #show_r_im(lab)
 
@@ -146,14 +135,12 @@ def sonly(tx,*f):
     elif tx=="!im":
         print("Sending Image!")
         o.send(tx.encode())
-        #o.send(str(len(args[0])).encode())
         file=open(f[0],"rb")
         chunk=file.read(1024)
         while (chunk):
             #print(chunk)
             o.send(chunk)
             chunk=file.read(1024)
-        #o.send("eof".encode())
         time.sleep(0.2)
         sonly("eof")
         print("Sent Image!")
@@ -206,24 +193,7 @@ class PigeonApp(App):
         while True:
             wd.text=str(datetime.now())[-15:-7]
             time.sleep(1)
-    """
-    def tb_press(self,ind):
-        global text_dict
-        self.ids.t_input=text_dict[ind]
-
-    def show_texts(self):
-        global text_dict
-        print(text_dict)
-
-    def ycam_press(self):
-        c=self.ids.your_cam
-        if c.play:
-            c.play=False
-            #c.texture="images/im1.jpg"
-        else:
-            c.play=True
-            #c.source=""
-    """
+    
     def send(self,t):
         tx=t.text
         sonly(tx)
