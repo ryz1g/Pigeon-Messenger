@@ -1,4 +1,4 @@
-# Pigeon-Messenger
+# Pigeon-Messenger (Requires Python and Kivy)
 Pigeon is a GUI based text and image messenger using Kivy and Python. Currently the layout is built. Functionalities will be added soon.
 
 1) Store the same Project folder in the PCs where you want to send messages.
