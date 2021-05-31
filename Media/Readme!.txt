@@ -1,1 +1,1 @@
-This folder will contain the received images!
+This folder will contain the received images or other files!
